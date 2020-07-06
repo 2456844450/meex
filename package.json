@@ -1,0 +1,29 @@
+{
+  "name": "meex",
+  "version": "1.0.3",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2456844450/gex.git"
+  },
+  "author": "mulan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2456844450/gex/issues"
+  },
+  "homepage": "https://github.com/2456844450/gex#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-arrow-functions": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/runtime": "^7.10.4"
+  }
+}

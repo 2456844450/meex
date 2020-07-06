@@ -1,3 +1,4 @@
+
 function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }
@@ -11,6 +12,9 @@ function isUndefined(obj) {
   return typeof obj === 'undefined'
 }
 
+function isFunction(obj) {
+  return typeof obj === 'function'
+}
 
 class Observer {
   constructor(data) {
@@ -58,16 +62,12 @@ class Observer {
 
 
 class Store {
-  constructor({
-    state: { },
-    getters: { },
-    mutations: { },
-    actions: { }
-  } = {}) {
-    this.state = state
-    this.mutations = mutations
-    this.actions = actions
-    this.getters = getters
+  constructor(obj = {}) {
+    this.state = obj.state
+    this.mutations = obj.mutations
+    this.actions = obj.actions
+    this.getters = obj.getters
+    this.listeners = []
     new Observer(this)
   }
 
@@ -111,10 +111,25 @@ class Store {
 
   commit = (mutation, payload) => {
     this.triggerMutation(mutation, payload)
+    for (let i=0; i < this.listeners.length; i++) {
+      const listener = this.listeners[i]
+      listener()
+    }
   }
 
 
   dispatch(action, payload) {
     this.triggerAction(action, payload)
   }
+
+  subscribe(listener) {
+    if (!isFunction(listener)) {
+      throw new Error('Expected the listener to be a function.')
+    }
+
+    this.listeners.push(listener)
+
+  }
 }
+
+export default Store
