@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/2456844450/gex.git"
+    "url": "git+https://github.com/2456844450/meex.git"
   },
   "author": "mulan",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/2456844450/gex/issues"
+    "url": "https://github.com/2456844450/meex/issues"
   },
-  "homepage": "https://github.com/2456844450/gex#readme",
+  "homepage": "https://github.com/2456844450/meex#readme",
   "devDependencies": {
     "@babel/cli": "^7.10.4",
     "@babel/core": "^7.10.4",
