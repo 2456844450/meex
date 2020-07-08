@@ -62,22 +62,42 @@ class Observer {
 
 
 class Store {
-  constructor(obj = {}) {
-    this.state = obj.state
-    this.mutations = obj.mutations
-    this.actions = obj.actions
-    this.getters = obj.getters
+  constructor({
+    state = {},
+    mutations = {},
+    actions = {},
+    getters = {}
+  }) {
+    this._state = state
+    this.mutations = mutations
+    this.actions = actions
+    this.getters = getters
     this.listeners = []
+
+
+
     new Observer(this)
+  }
+  get state() {
+    return this._state
+  }
+
+  set state(v) {
+    throw new Error('State should not be changed directly. Please use store.replaceState() to explicit replace store state')
+  }
+
+
+  replaceState(state) {
+    this._state = state
   }
 
   triggerMutation(mutation, payload) {
     if (isString(mutation)) {
       for (let mut in this.mutations) {
         if (isUndefined(payload) && mut === mutation) {
-          this.mutations[mut](this.state)
+          this.mutations[mut](this._state)
         } else if (isObject(payload) && mut === mutation) {
-          this.mutations[mut](this.state, payload)
+          this.mutations[mut](this._state, payload)
         }
       }
     }
@@ -85,7 +105,7 @@ class Store {
     else if (isObject(mutation)) {
       for (let mut in this.mutations) {
         if (mut === mutation.type) {
-          this.mutations[mut](this.state, mutation)
+          this.mutations[mut](this._state, mutation)
         }
       }
     }
@@ -128,7 +148,10 @@ class Store {
     }
 
     this.listeners.push(listener)
-
+    return function unsubscribe() {
+      const index = this.listeners.indexOf(listener)
+      this.listeners.splice(index, 1)
+    }
   }
 }
 

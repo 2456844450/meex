@@ -41,13 +41,16 @@ const getters = {
 }
 
 const store = new Store({state,mutations,actions,getters})
-
-store.dispatch({
-  type: 'increment'
-})
-store.dispatch({
-  type: 'increment'
-})
-store.dispatch('decrement', {
-  number: 10
-})
+console.log(store)
+console.dir(store.state.categoryIndex)
+store.state.categoryIndex = 11
+console.dir(store.state)
+// store.dispatch({
+//   type: 'increment'
+// })
+// store.dispatch({
+//   type: 'increment'
+// })
+// store.dispatch('decrement', {
+//   number: 10
+// })
